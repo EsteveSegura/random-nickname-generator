@@ -1,7 +1,7 @@
 {
   "name": "random-nickname-generator",
   "version": "0.1.0",
-  "description": "Generate your random or parameterized nicknames",
+  "description": "Generate random or parameterized nicknames.",
   "main": "./src/index",
   "scripts": {
     "start": "node ./src/",
@@ -15,7 +15,13 @@
     "type": "git",
     "url": "git+https://github.com/EsteveSegura/random-nickname-generator.git"
   },
-  "keywords": [],
+  "keywords": [
+    "random",
+    "random nickname",
+    "random nickname generator",
+    "nickname generator",
+    "fake nickname"
+  ],
   "author": "estevesegura",
   "license": "ISC",
   "devDependencies": {
