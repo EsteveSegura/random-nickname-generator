@@ -8,7 +8,8 @@
     "dev": "nodemon ./src/",
     "test": "jest --silent --testPathPattern=/test/ --passWithNoTests",
     "pretest": "eslint .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "examples": "node ./examples/"
   },
   "repository": {
     "type": "git",
