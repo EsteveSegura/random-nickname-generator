@@ -1,0 +1,30 @@
+{
+  "name": "random-nickname-generator",
+  "version": "0.1.0",
+  "description": "Generate your random or parameterized nicknames",
+  "main": "./src/index",
+  "scripts": {
+    "start": "node ./src/",
+    "dev": "nodemon ./src/",
+    "test": "jest --silent --testPathPattern=/test/ --passWithNoTests",
+    "pretest": "eslint .",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EsteveSegura/random-nickname-generator.git"
+  },
+  "keywords": [],
+  "author": "estevesegura",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.30.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^26.4.2"
+  },
+  "bugs": {
+    "url": "https://github.com/EsteveSegura/random-nickname-generator/issues"
+  },
+  "homepage": "https://github.com/EsteveSegura/random-nickname-generator#readme"
+}
