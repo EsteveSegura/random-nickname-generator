@@ -8,7 +8,7 @@ describe('RandomNicknameGenerator', () => {
     jest.resetAllMocks();
   });
 
-  it('should generate nickname separated with the separator, having two words', () => {
+  it('should generate nickname separated (custom separator), having two words', () => {
     const structure = [
       DATA_SETS.ANIMALS,
       DATA_SETS.JOBS,
@@ -23,7 +23,7 @@ describe('RandomNicknameGenerator', () => {
     expect(Array.isArray(structure[1])).toBeTruthy();
     expect(structure).toHaveLength(2);
     expect(generatedNickname.split(separator)).toHaveLength(2);
-    expect(countRepeatedSubstringInString({fullString: generatedNickname,
+    expect(_countRepeatedSubstringInString({fullString: generatedNickname,
       stringToCount: separator})).toBe(structure.length - 1);
 
     const firstWordInNickname = generatedNickname.split(separator)[0];
@@ -31,6 +31,157 @@ describe('RandomNicknameGenerator', () => {
 
     const secondWordInNickname = generatedNickname.split(separator)[1];
     expect(_termIsInsideArray({array: DATA_SETS.JOBS, term: secondWordInNickname})).toBeTruthy();
+
+    expect(typeof generatedNickname).toBe('string');
+  });
+
+  it('should generate nickname separated (custom separator), having two words and hex randomHash', () => {
+    const structure = [
+      DATA_SETS.ANIMALS,
+      DATA_SETS.JOBS,
+    ];
+    const separator = '-';
+    const randomHash = true;
+
+    const randomNickname = new RandomNicknameGenerator();
+    const generatedNickname = randomNickname.generate({structure, separator, randomHash});
+
+    expect(Array.isArray(structure)).toBeTruthy();
+    expect(Array.isArray(structure[0])).toBeTruthy();
+    expect(Array.isArray(structure[1])).toBeTruthy();
+    expect(structure).toHaveLength(2);
+    expect(generatedNickname.split(separator)).toHaveLength(3);
+    expect(_countRepeatedSubstringInString({fullString: generatedNickname,
+      stringToCount: separator})).toBe(2);
+
+    const firstWordInNickname = generatedNickname.split(separator)[0];
+    expect(_termIsInsideArray({array: DATA_SETS.ANIMALS, term: firstWordInNickname})).toBeTruthy();
+
+    const secondWordInNickname = generatedNickname.split(separator)[1];
+    expect(_termIsInsideArray({array: DATA_SETS.JOBS, term: secondWordInNickname})).toBeTruthy();
+
+    const thirdWordInNickname = generatedNickname.split(separator)[2];
+    expect(thirdWordInNickname).toHaveLength(12);
+    expect(_isHex(thirdWordInNickname)).toBeTruthy();
+
+    expect(typeof generatedNickname).toBe('string');
+  });
+
+  it('should generate nickname separated (custom separator), having two words and current date timestamp', () => {
+    const structure = [
+      DATA_SETS.ANIMALS,
+      DATA_SETS.JOBS,
+    ];
+    const separator = '-';
+    const timeStamp = true;
+
+    const randomNickname = new RandomNicknameGenerator();
+    const generatedNickname = randomNickname.generate({structure, separator, timeStamp});
+
+    expect(Array.isArray(structure)).toBeTruthy();
+    expect(Array.isArray(structure[0])).toBeTruthy();
+    expect(Array.isArray(structure[1])).toBeTruthy();
+    expect(structure).toHaveLength(2);
+    expect(generatedNickname.split(separator)).toHaveLength(3);
+    expect(_countRepeatedSubstringInString({fullString: generatedNickname,
+      stringToCount: separator})).toBe(2);
+
+    const firstWordInNickname = generatedNickname.split(separator)[0];
+    expect(_termIsInsideArray({array: DATA_SETS.ANIMALS, term: firstWordInNickname})).toBeTruthy();
+
+    const secondWordInNickname = generatedNickname.split(separator)[1];
+    expect(_termIsInsideArray({array: DATA_SETS.JOBS, term: secondWordInNickname})).toBeTruthy();
+
+    const thirdWordInNickname = generatedNickname.split(separator)[2];
+    const convertToDate = new Date(parseInt(thirdWordInNickname));
+    expect(convertToDate instanceof Date).toBeTruthy();
+    expect(!isNaN(convertToDate)).toBeTruthy();
+
+    expect(typeof generatedNickname).toBe('string');
+  });
+
+  /* eslint-disable max-len */
+  it('should generate nickname separated (custom separator), having two words, current date timestamp and randomHash', () => {
+    const structure = [
+      DATA_SETS.ANIMALS,
+      DATA_SETS.JOBS,
+    ];
+    const separator = '-';
+    const timeStamp = true;
+    const randomHash = true;
+
+    const randomNickname = new RandomNicknameGenerator();
+    const generatedNickname = randomNickname.generate({structure, separator, timeStamp, randomHash});
+
+    expect(Array.isArray(structure)).toBeTruthy();
+    expect(Array.isArray(structure[0])).toBeTruthy();
+    expect(Array.isArray(structure[1])).toBeTruthy();
+    expect(structure).toHaveLength(2);
+    expect(generatedNickname.split(separator)).toHaveLength(4);
+    expect(_countRepeatedSubstringInString({fullString: generatedNickname,
+      stringToCount: separator})).toBe(3);
+
+    const firstWordInNickname = generatedNickname.split(separator)[0];
+    expect(_termIsInsideArray({array: DATA_SETS.ANIMALS, term: firstWordInNickname})).toBeTruthy();
+
+    const secondWordInNickname = generatedNickname.split(separator)[1];
+    expect(_termIsInsideArray({array: DATA_SETS.JOBS, term: secondWordInNickname})).toBeTruthy();
+
+    const thirdWordInNickname = generatedNickname.split(separator)[2];
+    expect(thirdWordInNickname).toHaveLength(12);
+    expect(_isHex(thirdWordInNickname)).toBeTruthy();
+
+    const fourWordInNickname = generatedNickname.split(separator)[3];
+    const convertToDate = new Date(parseInt(fourWordInNickname));
+    expect(convertToDate instanceof Date).toBeTruthy();
+    expect(!isNaN(convertToDate)).toBeTruthy();
+
+    expect(typeof generatedNickname).toBe('string');
+  });
+
+  /* eslint-disable max-len */
+  it('should generate nickname separated (custom separator), having two words, current date timestamp and randomHash, with custom order', () => {
+    const structure = [
+      DATA_SETS.ANIMALS,
+      DATA_SETS.JOBS,
+    ];
+    const separator = '-';
+    const timeStamp = true;
+    const randomHash = true;
+    const order = ':randomHash:structure:timeStamp';
+
+    const randomNickname = new RandomNicknameGenerator();
+    const generatedNickname = randomNickname.generate({structure, separator, timeStamp, randomHash, order});
+
+    expect(Array.isArray(structure)).toBeTruthy();
+    expect(Array.isArray(structure[0])).toBeTruthy();
+    expect(Array.isArray(structure[1])).toBeTruthy();
+    expect(structure).toHaveLength(2);
+    expect(generatedNickname.split(separator)).toHaveLength(4);
+    expect(_countRepeatedSubstringInString({fullString: generatedNickname,
+      stringToCount: separator})).toBe(3);
+
+    const firstWordInNickname = generatedNickname.split(separator)[0];
+    expect(firstWordInNickname).toHaveLength(12);
+    expect(_isHex(firstWordInNickname)).toBeTruthy();
+
+    const secondWordInNickname = generatedNickname.split(separator)[1];
+    expect(_termIsInsideArray({array: DATA_SETS.ANIMALS, term: secondWordInNickname})).toBeTruthy();
+
+    const thirdWordInNickname = generatedNickname.split(separator)[2];
+    expect(_termIsInsideArray({array: DATA_SETS.JOBS, term: thirdWordInNickname})).toBeTruthy();
+
+    const fourWordInNickname = generatedNickname.split(separator)[3];
+    const convertToDate = new Date(parseInt(fourWordInNickname));
+    expect(convertToDate instanceof Date).toBeTruthy();
+    expect(!isNaN(convertToDate)).toBeTruthy();
+
+    const splitOrderSintax = order.split(':');
+    expect(splitOrderSintax).toHaveLength(4);
+    expect(splitOrderSintax[0]).toBe('');
+    expect(splitOrderSintax[1]).toBe('randomHash');
+    expect(splitOrderSintax[2]).toBe('structure');
+    expect(splitOrderSintax[3]).toBe('timeStamp');
 
     expect(typeof generatedNickname).toBe('string');
   });
@@ -101,11 +252,10 @@ function _substringIsInsideArray({arrays, term}) {
 
   return termsInsideArrays;
 }
-
 function _termIsInsideArray({array, term}) {
   return array.some((elementInArray) => term === elementInArray);
 }
-function countRepeatedSubstringInString({fullString, stringToCount}) {
+function _countRepeatedSubstringInString({fullString, stringToCount}) {
   const fullStringToArray = fullString.split('');
 
   const allRepeatedStrings = fullStringToArray.reduce(function(prev, cur) {
@@ -114,4 +264,10 @@ function countRepeatedSubstringInString({fullString, stringToCount}) {
   }, {});
 
   return allRepeatedStrings[stringToCount];
+}
+function _isHex(input) {
+  const parseHexToInt = parseInt(input, 16);
+  const assertCanParseBackToString = parseHexToInt.toString(16) === input;
+
+  return assertCanParseBackToString;
 }
