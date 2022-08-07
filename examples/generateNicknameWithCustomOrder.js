@@ -1,12 +1,13 @@
 const {RandomNicknameGenerator, DATA_SETS} = require('../src/index');
 
-const customStrcutre = ['SAD', 'HAPPY'];
 const nickname = RandomNicknameGenerator.generate({
   structure: [
-    customStrcutre,
     DATA_SETS.ANIMALS,
+    DATA_SETS.ADJECTIVES,
   ],
   separator: '_',
+  timeStamp: true,
+  order: ':timeStamp:structure',
 });
 
 const path = require('path');
