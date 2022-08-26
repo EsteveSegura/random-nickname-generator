@@ -1,7 +1,6 @@
-const crypto = require('crypto');
 const InvalidStructureError = require('../errors/InvalidStructureError');
 const InvalidSeparatorError = require('../errors/InvalidSeparatorError');
-const {randomInt} = require('../utils/random');
+const {randomInt, randomHex} = require('../utils/random');
 
 // TODO: Convert the generate input on options object, and stop receiving all params (define default config)
 
@@ -25,7 +24,7 @@ class RandomNicknameGenerator {
 
     let hash = '';
     if (randomHash) {
-      hash = this._generateRandomHash({size: 6});
+      hash = randomHex(6);
     }
 
     let currentTimeStamp = '';
@@ -77,16 +76,6 @@ class RandomNicknameGenerator {
     }
 
     return term.trim();
-  }
-
-  /**
-   * Private mehtod for generating random bytes and parse to hex.
-   * @param {Number} size - Size of the random bytes.
-   * @return {String} randomHexString - Random bytes expressed in hex.
-   */
-  _generateRandomHash({size = 6}) {
-    const randomHexString = crypto.randomBytes(size).toString('hex');
-    return randomHexString;
   }
 
   /**

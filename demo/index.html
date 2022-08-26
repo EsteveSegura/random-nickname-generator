@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="./js/tailwind.js"></script>
+    <link rel="stylesheet" href="./css/intro.css">
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>RandomNicknameGenerator</title>
+</head>
+<body>
+<div class="flex h-screen overflow-hidden bg-white ">
+    <button id="refresh" class="flex justify-center items-center absolute bottom-0 right-0 h-16 w-16 mr-4 mb-4 block text-base text-white placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-full bg-indigo-800 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 hover:bg-indigo-400">
+        <svg  viewBox="0 0 490.563 490.563" class="w-8 center-items" fill="white">
+          <path fill-rule="evenodd" d="M331.004 128.766c-2.1 11.4 5.2 21.8 16.6 23.9l102 17.7c12.1 1.9 20.1-6.6 22.9-17.7l17.7-102c2.1-11.4-5.2-21.8-16.6-23.9s-21.8 5.2-23.9 16.6l-9 54.7c-45.7-60.7-117.9-97.8-195.8-97.9-146.7 0-243.9 116.3-244.9 244.9-.5 65.4 49.8 232.9 244.8 244.8 195.2 11.9 244.8-179.4 244.8-244.8 0-11.3-9.2-20.5-20.5-20.5s-20.5 9.2-20.5 20.5c0 112.4-91.4 203.8-203.8 203.8s-203.8-91.4-203.8-203.8 91.4-203.8 203.8-203.8c63.9 0 123.3 30.1 161.4 79.3l-51.2-8.5c-11.5-2.1-21.9 5.2-24 16.7z" clip-rule="evenodd"/>
+        </svg>
+    </button>
+    <div class="hidden md:flex md:flex-shrink-0">
+        <div class="flex flex-col w-96">
+            <div id="sidebar" class="flex flex-col flex-grow pt-5 overflow-y-auto bg-indigo-700 border-r scrollbar">
+                <div class="flex flex-col items-center flex-shrink-0 px-4">
+                    <a href="./index.html" class="px-8 text-left focus:outline-none">
+                        <h2 class="block p-2 text-xl font-medium tracking-tighter text-white transition duration-500 ease-in-out transform cursor-pointer hover:text-white">
+                            RandomNicknameGenerator</h2>
+                    </a>
+                    <button class="hidden rounded-lg focus:outline-none focus:shadow-outline">
+                        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                                  clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-col flex-grow px-4 mt-5">
+                    <div class="flex-1 space-y-1 bg-indigo-700">
+                        <ul>
+                            <li id="separatorTutorial">
+                                <span class="flex flex-col w-full px-4 py-2 mt-1 text-base text-white transition duration-500 ease-in-out transform bg-indigo-600 rounded-lg focus:shadow-outline"
+                                   white="" 70="" href="#">
+                                    <div class="inline-flex items-center w-full ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                        <span class="ml-4"> Separator</span>
+                                    </div>
+                                    <input type="text" style="z-index:5;" id="separator"
+                                           class="block w-full my-3 px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                                           value="-">
+                                </span>
+                            </li>
+                            <li id="randomValuesTutorial">
+                                <span class="flex flex-col w-full px-4 py-2 mt-1 text-base text-white transition duration-500 ease-in-out transform bg-indigo-600 rounded-lg focus:shadow-outline"
+                                   white="" 70="" href="#">
+                                    <div class="inline-flex items-center w-full ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                        <span class="ml-4"> Random Values</span>
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <div class="py-4 rounded-lg text-black ">
+                                            <div class="flex w-full gap-1 text-xs rounded-md">
+                                                <button id="hash"
+                                                        class="w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold"
+                                                        value="darken">Hash
+                                                </button>
+                                                <button id="timestamp"
+                                                        class="w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold"
+                                                        value="spin">TimeStamp
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </li>
+                            <li id="customDictionaryTutorial">
+                                <span class="flex flex-col w-full px-4 py-2 mt-1 text-base text-white transition duration-500 ease-in-out transform bg-indigo-600 rounded-lg focus:shadow-outline"
+                                   white="" 70="" href="#">
+                                    <div class="inline-flex items-center w-full ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                        <span class="ml-4"> Custom dictionary</span>
+                                    </div>
+                                    <div class="text-black">
+                                        <input type="text" style="z-index:5;" id="customdicinput"
+                                               class="block w-full my-3 px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                                               value="Pesto, Carbonara, Alfredo">
+                                        <button id="customdic"
+                                                class=" w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                            Apply custom dictionary
+                                        </button>
+                                    </div>
+
+                                </span>
+                            </li>
+                            <li id="dictionariesTutorial">
+                                <span class="flex flex-col w-full px-4 py-2 mt-1 text-base text-white transition duration-500 ease-in-out transform bg-indigo-600 rounded-lg focus:shadow-outline"
+                                   white="" 70="" href="#">
+                                    <div class="inline-flex items-center w-full ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                        <span class="ml-4"> Dictionaries</span>
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <div class="py-4 rounded-lg text-black ">
+                                            <div class="flex flex-col w-full gap-1 text-xs rounded-md">
+                                                <button id="ADJECTIVES"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    ADJECTIVES
+                                                </button>
+                                                <button id="ANIMALS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    ANIMALS
+                                                </button>
+                                                <button id="FRUITS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    FRUITS
+                                                </button>
+                                                <button id="FLOWERS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    FLOWERS
+                                                </button>
+                                                <button id="INSTRUMENTS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    INSTRUMENTS
+                                                </button>
+                                                <button id="OBJECTS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    OBJECTS
+                                                </button>
+                                                <button id="CLOTHES"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    CLOTHES
+                                                </button>
+                                                <button id="BODY"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    BODY
+                                                </button>
+                                                <button id="WEATHER"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    WEATHER
+                                                </button>
+                                                <button id="GAMES"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    GAMES
+                                                </button>
+                                                <button id="SPORTS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    SPORTS
+                                                </button>
+                                                <button id="JOBS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    JOBS
+                                                </button>
+                                                <button id="SPORTS"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    SPORTS
+                                                </button>
+                                                <button id="VIDEO_GAMES"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    VIDEO_GAMES
+                                                </button>
+                                                <button id="MOVIE_GENRES"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    MOVIE_GENRES
+                                                </button>
+                                                <button id="ACTOR_NAME"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    ACTOR_NAME
+                                                </button>
+                                                <button id="ACTOR_SURNAME"
+                                                        class="dictionary w-full px-2 py-2 transition duration-500 ease-in-out transform bg-white rounded-md  hover:bg-ultramarine hover:text-indigo-500 font-semibold">
+                                                    ACTOR_SURNAME
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex w-full items-center ">
+        <div class="pt-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+            <p>Nickname generated</p>
+            <div class="p-4 rounded-lg bg-gray-300 ">
+                <h1 class="text-6xl font-semibold" id="nickname">sad</h1>
+            </div>
+            <p class="mt-7">Code</p>
+            <div id="calcStyle" class="pl-4 pr-4 pt-4 rounded-lg bg-gray-300">
+                <pre class="font-semibold">
+                    <code id="code" class="javascript"></code>
+                </pre>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./js/randomNicknameGenerator.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<script src="./js/intro.js"></script>
+<script type="text/javascript">
+  DATA_SETS.CUSTOM = []
+  const hashDom = document.querySelector('#hash')
+  const timeStampDom = document.querySelector('#timestamp')
+  const separatorDom = document.querySelector('#separator')
+  const customDictionaryDom = document.querySelector('#customdic')
+  const customDictionaryValueDom = document.querySelector('#customdicinput')
+  const refreshDom = document.querySelector('#refresh')
+
+  setTimeout(() => {
+    document.querySelector('#ADJECTIVES').click();
+    document.querySelector('#ANIMALS').click();
+  }, 1)
+
+
+  let separator = '-'
+  let timeStamp = false;
+  let hash = false;
+  let dataSets = []
+
+  document.addEventListener("click", (element) => {
+    if (element.target.classList.contains('dictionary')) {
+      element.target.classList.toggle("bg-indigo-800");
+      element.target.classList.toggle("text-white");
+      setDatasets(element.target.id)
+
+      generateNickName()
+    }
+  });
+
+  timeStampDom.addEventListener('click', () => {
+    timeStamp = !timeStamp;
+    timeStampDom.classList.toggle("bg-indigo-800");
+    timeStampDom.classList.toggle("text-white");
+    generateNickName()
+  });
+
+  refreshDom.addEventListener('click', () => {
+    generateNickName()
+  });
+
+  customDictionaryDom.addEventListener('click', () => {
+    const commanSeparated = customDictionaryValueDom.value.split(',');
+    const commanSeparatedTrim = commanSeparated.map(el => el.trim());
+    DATA_SETS['CUSTOM'] = commanSeparatedTrim
+
+    setDatasets('CUSTOM')
+
+    customDictionaryDom.classList.toggle("bg-indigo-800");
+    customDictionaryDom.classList.toggle("text-white");
+    generateNickName()
+  });
+
+  customDictionaryValueDom.addEventListener('input', () => {
+    const commanSeparated = customDictionaryValueDom.value.split(',');
+    const commanSeparatedTrim = commanSeparated.map(el => el.trim());
+    DATA_SETS['CUSTOM'] = commanSeparatedTrim
+
+    generateNickName()
+  });
+
+  hashDom.addEventListener('click', () => {
+    hash = !hash;
+    hashDom.classList.toggle("bg-indigo-800");
+    hashDom.classList.toggle("text-white");
+    generateNickName()
+  });
+
+  separatorDom.addEventListener('input', () => {
+    separator = separatorDom.value;
+    generateNickName()
+  });
+
+  function setDatasets(datasetname) {
+    const exists = dataSets.find(el => el === datasetname)
+    if (!exists) {
+      dataSets.push(datasetname)
+    } else {
+      const idxToDelete = dataSets.findIndex(el => el === datasetname);
+      if (idxToDelete > -1) {
+        dataSets.splice(idxToDelete, 1)
+      }
+    }
+  }
+
+  function generateNickName() {
+    document.querySelector('#nickname').innerText = RandomNicknameGenerator.generate({
+      structure: dataSets.map(el => DATA_SETS[el]),
+      separator,
+      timeStamp: timeStamp,
+      randomHash: hash,
+    })
+
+    const nameDatasets = dataSets.filter(el => el !== 'CUSTOM')
+    const formatDatasets = nameDatasets.map(el => `\n    DATA_SETS.${el}`)
+    const generateCustom = DATA_SETS.CUSTOM.map(el => `'${el}'`).join(", ")
+    const customArr = `,\n    [${generateCustom}]`
+
+    console.log(hljs.highlight('<h1>Hello World</h1>', {language: 'html'}).value)
+    document.querySelector('#code').innerHTML = hljs.highlight(`RandomNicknameGenerator.generate({
+  structure:[${formatDatasets}${DATA_SETS.CUSTOM.length  !== 0 && dataSets.includes('CUSTOM') ? customArr : ''}\n  ],
+  separator: '${separator}',
+  timeStamp: ${timeStamp},
+  randomHash: ${hash},
+});`, {language: 'javascript'}).value
+    hljs.highlightAll();
+    //RESIZE THE CODE BOX
+    const calcStyle = document.querySelector('#calcStyle')
+    calcStyle.style.height = `100%`;
+    console.log(calcStyle.getBoundingClientRect().height)
+    calcStyle.style.height = `${Math.floor(calcStyle.getBoundingClientRect().height) - 45}px`;
+  }
+
+
+  introJs().setOptions({
+    steps: [
+      {
+        element: document.querySelector('#separatorTutorial'),
+        intro: "Type a separator for the different text strings that make up the nickname, The one now is \"-\"",
+        position: 'right',
+      },
+      {
+        element: document.querySelector('#randomValuesTutorial'),
+        intro: "Click on the buttons to add different random values to the end of the nickname",
+        position: 'right',
+      },
+      {
+        element: document.querySelector('#customDictionaryTutorial'),
+        intro: "You can write custom dictionaries to add to the existing ones (comma separated), Don't forget to click here to Apply...",
+        position: 'right',
+      },
+      {
+        element: document.querySelector('#dictionariesTutorial'),
+        intro: "This is the library of all the dictionaries we have available, feel free to check and uncheck the ones you want.",
+        position: 'right',
+      },
+      {
+        element: document.querySelector('#refresh'),
+        intro: "Click here to regenerate your nickname!",
+        position: 'left',
+      }
+    ]
+  }).setOption("dontShowAgain", true).onbeforeexit(function () {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.scrollTop = 0;
+  }).start();
+
+</script>
+</body>
+</html>
